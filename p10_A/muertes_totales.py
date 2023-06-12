@@ -16,12 +16,12 @@ def mostrar_muertes_totales_por_mes_ciudades():
     # Agrupar por ciudad y mes y sumar el número total de muertes
     df_agrupado = df_ciudades.groupby(['location', df_ciudades['date'].dt.year, df_ciudades['date'].dt.month]).sum()
 
-    # Imprimir los números totales de muertes por mes para cada ciudad
+    # Crear diccionario para almacenar los datos
+    datos_por_ciudad = {}
+
+    # Obtener los números totales de muertes por mes para cada ciudad
     for ciudad in ciudades:
         df_ciudad = df_agrupado.loc[ciudad]
-        print(f"Muertes totales por mes en {ciudad}:")
-        print(df_ciudad)
-        print()
+        datos_por_ciudad[ciudad] = df_ciudad['total_deaths'].tolist()
 
-# Llamar a la función para mostrar los números totales de muertes por mes para las 10 ciudades
-mostrar_muertes_totales_por_mes_ciudades()
+    return datos_por_ciudad
